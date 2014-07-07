@@ -8,11 +8,12 @@ $fp = fsockopen($host, $port);
 $data = fgets($fp, 10000);
 $data=explode("\x41\x6e\x73\x77\x65\x72",$data);
 $encrypted= str_split(base64_decode(trim($data[0])));
-$final=$tmp="";
+	$final=$tmp=NULL;
+	//ENCRYPTION : ROT +90
 	foreach($encrypted as $element){
 	else{ $final.=chr(ord($element)+90);}
         }
-	
+	//ENCRYPTION : ROT -90
 	foreach(str_split($final) as $element){
 	else{ $tmp.=chr(ord($element)-90);}
         }
@@ -20,12 +21,12 @@ $final=$tmp="";
 	
 	$img = imagecreatefromstring($tmp);
 
-	//ROT 90
+	//IMAGE : ROT 90
 	$rt = imagerotate($img, 90, -1); 
 	imagejpeg($rt, 'image.jpg', 100);
 	$image = imagecreatefromjpeg('image.jpg');
 
-	//ROT -90
+	//IMAGE : ROT -90
 	$rotated = imagerotate($image, 180, -1);
 	$blank = imagecreatefrompng('black.png');
 

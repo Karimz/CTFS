@@ -1,0 +1,52 @@
+<?php
+
+//CODED BY KAMI@SPIDERZ
+
+$host="41.231.53.40";
+$port=9090;
+$fp = fsockopen($host, $port);
+$data = fgets($fp, 10000);
+$data=explode("Answer",$data);
+$encrypted= str_split(base64_decode(trim($data[0])));
+$final=$tmp="";
+	foreach($encrypted as $element){
+	if($element=="TROL"){echo " ";	}
+	else{
+	$final.=chr(ord($element)+90);
+	}}
+	
+	foreach(str_split($final) as $element){
+	if($element=="TROL"){echo " ";	}
+	else{
+	$tmp.=chr(ord($element)-90);
+	}}
+
+	
+	$img = imagecreatefromstring($tmp);
+	//ROT 90
+	$rt = imagerotate($img, 90, -1); 
+	imagejpeg($rt, 'image.jpg', 100);
+	$image = imagecreatefromjpeg('image.jpg');
+	//ROT -90
+	$rotated = imagerotate($image, 180, -1);
+	$blank = imagecreatefrompng('black.png');
+
+	imagefilter($rotated, IMG_FILTER_COLORIZE, 255, 0, 255);
+	imagefilter($image, IMG_FILTER_COLORIZE, 255, 0, 255);
+
+	imagecopymergegray($image, $rotated, 10, 100, 10, 100, 180, 47, 50);
+	imagecopymerge($image, $blank, 20, 50, 10, 50, 170, 47, 100);
+	/* OCR  */
+	imagefilter($image, IMG_FILTER_GRAYSCALE, 255, 0, 255);
+	imagejpeg($image, 'image.jpg', 100);
+
+	exec('djpeg.exe -pnm -gray image.jpg | gocr049.exe -', $output);
+	$ocr=$output[0];
+	echo "WILD OCR : $ocr \n";
+		$ocr = strtoupper(str_replace(" ", "",$ocr));$ocr=str_replace("-", "3",$ocr);$ocr=str_replace("_", "O", $ocr);
+	echo "Filtered OCR: $ocr \n";
+	fwrite($fp, $ocr."\n");
+	echo $data = fgets($fp, 10000);
+
+
+?>

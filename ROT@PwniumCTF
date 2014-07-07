@@ -6,7 +6,7 @@ $host="41.231.53.40";
 $port=9090;
 $fp = fsockopen($host, $port);
 $data = fgets($fp, 10000);
-$data=explode("Answer",$data);
+$data=explode("\x41\x6e\x73\x77\x65\x72",$data);
 $encrypted= str_split(base64_decode(trim($data[0])));
 $final=$tmp="";
 	foreach($encrypted as $element){

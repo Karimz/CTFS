@@ -10,9 +10,7 @@ $port=  6969;
 $all      = array();
 $charset  = range(65,122);
 
-			$cracked="";
-			$try=0;
-			$final="";
+			$cracked = $try = $final = NULL;
 
 			for($i=1;$i<=32;$i++){
 				foreach($charset as $char)
